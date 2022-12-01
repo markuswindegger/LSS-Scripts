@@ -7,6 +7,7 @@
 // @match        https://www.leitstellenspiel.de/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
+// @namespace    https://https://github.com/floflo3299/LSS-Scripts/edit/main/DailyButtonBlink.user.js
 // ==/UserScript==
 
 (function() {
