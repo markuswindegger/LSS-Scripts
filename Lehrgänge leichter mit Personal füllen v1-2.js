@@ -15,54 +15,8 @@
 
     await $.getScript("https://api.lss-cockpit.de/lib/utf16convert.js");
 
-    //------- you can change this variables -------
-
-    //Mit dieser Variable können Standard-Filter-Werte für einzelne Lehrgänge festgelegt werden
-    //Dabei muss man wie folgt vorgehen:
-
-    //1. Suche den Namen des Lehrgang raus, für welchen Standard-Filter-Werte erstellt werden sollen. Füge diesen Namen in eckigen Klammern und Anführungszeichen ein.
-    //Beispiel: ["GW-Gefahrgut Lehrgang"]
-
-    //2. Falls standardmäßig nach einem Gebäude gefiltert werden soll, füge in Anführungszeichen die ID dem obigen Eintrag hinzu. Andernfalls füge leere Anfähungzeichen hinzu
-    //Beispiel falls EIN Gebäude standardmäßig ausgewählt werden soll: ["GW-Gefahrgut Lehrgang","0"]
-    //Beispiel falls KEIN Gebäude standardmäßig ausgewählt werden soll: ["GW-Gefahrgut Lehrgang",""]
-
-    //3. Falls standardmäßig nach einer Erweiterung gefiltert werden soll, füge in Anführungszeichen den exakten Namen der Erweiterung dem obigen Eintrag hinzu. Andernfalls füge leere Anfähungzeichen hinzu
-    //Beispiel falls EINE Erweiterung standardmäßig ausgewählt werden soll: ["GW-Gefahrgut Lehrgang","0","Großwache"]
-    //Beispiel falls KEINE Erweiterung standardmäßig ausgewählt werden soll: ["GW-Gefahrgut Lehrgang","0",""]
-
-    //4. Falls standardmäßig nur Gebäude angezeigt werden sollen, in welchen noch keine gewisse Anzahl an Ausbildungen vorhanden ist, füge in Anführungszeichen die Anzahl der Ausbildungen dem obigen Eintrag hinzu.
-    //Andernfalls füge leere Anfähungzeichen hinzu
-    //Beispiel falls nach vorhandenen Ausbildungen gefiltert werden soll: ["GW-Gefahrgut Lehrgang","0","Großwache","6"]
-    //Beispiel falls nicht nach vorhandenen Ausbildungen gefiltert werden soll: ["GW-Gefahrgut Lehrgang","0","Großwache",""]
-
-    //5. Falls standardmäßig nur Gebäude angezeigt werden sollen, in welchen eine gewisse Anzahl an Leuten vorhanden ist, füge in Anführungszeichen die Anzahl der Ausbildungen dem obigen Eintrag hinzu.
-    //Andernfalls füge leere Anfähungzeichen hinzu
-    //Beispiel falls nach Anzahl des Personal gefiltert werden soll: ["GW-Gefahrgut Lehrgang","0","Großwache","6","80"]
-    //Beispiel falls nicht nach Anzahl des Personals gefiltert werden soll: ["GW-Gefahrgut Lehrgang","0","Großwache","6",""]
-
-    //6. Füge zum Schluss ein Komma hinten hinzu
-    //Beispiel: ["GW-Gefahrgut Lehrgang","0","Großwache","6","80"],
-
-    //7. Diesen nun generierten Eintrag fügst du unten zwischen den beiden Kommentaren ein. Ob du alle Einträge in eine Zeile schreibst oder in eine Zeile nur einen Eintrag ist egal.
-
-    var standardFilterWerte = [
-        //***** unterhalb von hier einfügen *****
-
-        ["Zugführer (leBefKw)","11","","4","13"],
-        ["GW-Gefahrgut Lehrgang","0","Großwache","6","80"],
-        ["SEK","11","SEK","9","35"],
-        ["MEK","11","MEK","9","35"],
-        ["SEK","11","SEK","18","53"],
-        ["MEK","11","MEK","18","53"],
-        ["Hundeführer (Schutzhund)","11","Diensthundestaffel","3","56"],
-        ["Wasserwerfer","11","Technischer Zug: Wasserwerfer","15","68"],
-
-
-        //***** oberhalb von hier einfügen *****
-    ];
-
-    //------- after here change only stuff if you know what you are doing -------
+    
+    var standardFilterWerte = [];
 
     var defaultValueSettings = [["","","","",""]]
 
