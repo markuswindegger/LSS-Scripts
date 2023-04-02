@@ -15,8 +15,18 @@
 
     // Beispiel:     [[50,1]]     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal eine Person gesetzt
     // Beispiel:     [[50,2],[51,3]]     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal 2 Personen gesetzt, Fahrzeuge mit der VehicleId 51 (FüKw) werden auf maximal 3 Personen gesetzt
-    var vehicleTypeIdToClassName = [[35,"1"],[50,"1"],[72,"1"],[79,"1"],[80,"1"],[81,"1"],[82,"1"],[94,"1"],[52,"1"]];
-    //var vehicleTypeIdToClassName = [[35,"3"],[50,"9"],[72,"5"],[79,"4"],[80,"9"],[81,"4"],[82,"9"],[94,"2"]];
+
+    var vehicleTypeIdToClassName = [
+        [35, 1],
+        [50, 1],
+        [72, 1],
+        [79, 1],
+        [80, 1],
+        [81, 1],
+        [82, 1],
+        [94, 1],
+        [52, 1]
+    ];
 
     //------- after here change only stuff if you know what you are doing -------
 
