@@ -49,8 +49,6 @@
     var standardFilterWerte = [
         //***** unterhalb von hier einfügen *****
 
-        //["SEK","11","SEK","9","35"],
-        //["MEK","11","MEK","9","35"],
         //["SEK","11","SEK","18","53"],
         //["MEK","11","MEK","18","53"],
 
