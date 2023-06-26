@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Lehrgänge leichter mit Personal füllen
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  enables the filtering of buildings in the creation of courses and select people faster!
 // @author      Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -49,10 +49,10 @@
     var standardFilterWerte = [
         //***** unterhalb von hier einfügen *****
 
-        ["Zugführer (leBefKw)","11","","4","13"],
-        ["GW-Gefahrgut Lehrgang","0","","6","80"],
-        ["Hundeführer (Schutzhund)","11","Diensthundestaffel","3","56"],
-        ["Wasserwerfer","11","Technischer Zug: Wasserwerfer","15","68"],
+        //["SEK","11","SEK","9","35"],
+        //["MEK","11","MEK","9","35"],
+        //["SEK","11","SEK","18","53"],
+        //["MEK","11","MEK","18","53"],
 
 
         //***** oberhalb von hier einfügen *****
@@ -62,8 +62,8 @@
 
     var defaultValueSettings = [["","","","",""]]
 
-    var feuerwehrAusbauten = ["Rettungsdienst-Erweiterung","Wasserrettungs-Erweiterung","Flughafen-Erweiterung","Großwache","Werkfeuerwehr","Abrollbehälter-Stellplatz"];
-    var thwAusbauten = ["Zugtrupp","Fachgruppe Räumen","Fachgruppe Wassergefahren","Fachgruppe Ortung","Fachgruppe Wasserschaden/Pumpen"];
+    var feuerwehrAusbauten = ["Rettungsdienst-Erweiterung","Wasserrettungs-Erweiterung","Flughafen-Erweiterung","Großwache","Werkfeuerwehr","Abrollbehälter-Stellplatz","Lüfter-Erweiterung","NEA50-Erweiterung","NEA200-Erweiterung"];
+    var thwAusbauten = ["Zugtrupp","Fachgruppe Räumen","Fachgruppe Wassergefahren","Fachgruppe Ortung","Fachgruppe Wasserschaden/Pumpen","Fachgruppe Schwere Bergung","Fachgruppe Elektroversorgung"];
     var polizeiAusbauten = ["Technischer Zug: Wasserwerfer","SEK","MEK","Diensthundestaffel","Kriminalpolizei-Erweiterung","Dienstgruppenleitung-Erweiterung","Außenlastbehälter-Erweiterung"];
     var rettungsDienstAusbauten = ["Wasserrettungs-Erweiterung","Rettungshundestaffel"];
 
@@ -144,6 +144,7 @@
 
         $('#accordion').before(newWindow);
 
+
         newWindow = document.createElement("div");
 
         text = `
@@ -152,6 +153,7 @@
 
         $('#accordion').before(newWindow);
 
+
         newWindow = document.createElement("div");
 
         text = `
@@ -159,6 +161,7 @@
         newWindow.innerHTML = text;
 
         $('#accordion').before(newWindow);
+
 
         newWindow = document.createElement("div");
 
@@ -174,6 +177,7 @@
 
         $('#accordion').before(newWindow);
 
+
         newWindow = document.createElement("div");
 
         text = `
@@ -188,6 +192,17 @@
 
         $('#accordion').before(newWindow);
 
+
+        newWindow = document.createElement("div");
+
+        text = `
+          Lager vorhanden:
+          <input type="checkbox" id="lager" name="lagerFiltern" style="display:inline-block; color: #000;">`;
+        newWindow.innerHTML = text;
+
+        $('#accordion').before(newWindow);
+
+
         newWindow = document.createElement("div");
 
         text = `
@@ -197,6 +212,7 @@
 
         $('#accordion').before(newWindow);
 
+
         newWindow = document.createElement("div");
 
         text = `
@@ -205,6 +221,7 @@
         newWindow.innerHTML = text;
 
         $('#accordion').before(newWindow);
+
 
         $('#navbar-building-schooling-collapse').append(`
             <div class="navbar-text navbar-right">
@@ -231,7 +248,7 @@
         var relevantRadioButtons = Array.prototype.slice.call(document.getElementsByTagName("input")).filter(e => e.getAttribute("class") == "radio");
         relevantRadioButtons = relevantRadioButtons.filter(e => e.getAttribute("id").indexOf("education_") >= 0);
 
-        if(document.getElementsByTagName("h2").length > 0){
+        if(document.getElementsByTagName("h2").length > 0 && (document.getElementsByTagName("h2")[0] == null || document.getElementsByTagName("h2")[0].parentNode.className != "alert alert-info")){
             setting = standardFilterWerte.filter((e) => e[0] === document.getElementsByTagName("h2")[0].innerText);
         } else if(relevantRadioButtons.length > 0){
             checkForRadioButtonChange();
@@ -290,11 +307,13 @@
     var oldAusbauSelection = NaN;
     var oldGebäudeSelection = NaN;
     var oldNumPeopleSelection = NaN;
+    var oldLagerSelection = NaN;
 
     function updateRelevantBuildings(){
         oldAusbauSelection = document.getElementById('ausbau').value;
         oldGebäudeSelection = document.getElementById('gebaeudeArt').value;
         oldNumPeopleSelection = document.getElementById('minPerson').value;
+        oldLagerSelection = document.getElementById('lager').checked;
 
         relevantBuildingIDs = [];
 
@@ -302,7 +321,9 @@
 
         filtered = buildings.filter((e) => {
             if(e.extensions){
-                return (document.getElementById('gebaeudeArt').value == "" || e.building_type == parseInt(oldGebäudeSelection)) && (document.getElementById('minPerson').value == "" || parseInt(document.getElementById('minPerson').value) <= e.personal_count) && (document.getElementById('ausbau').value == "" || e.extensions.filter((e1) => e1.caption.indexOf(document.getElementById('ausbau').value) >= 0).length > 0);
+                return (document.getElementById('gebaeudeArt').value == "" || e.building_type == parseInt(oldGebäudeSelection)) && (document.getElementById('minPerson').value == "" || parseInt(document.getElementById('minPerson').value) <= e.personal_count) &&
+                    (document.getElementById('ausbau').value == "" || e.extensions.filter((e1) => e1.caption.indexOf(document.getElementById('ausbau').value) >= 0).length > 0) &&
+                    (oldLagerSelection == false || e.storage_upgrades.length > 0);
             } else {
                 return false;
             }
@@ -316,8 +337,10 @@
     filterBuildings();
 
     async function filterBuildings(){
+        console.log(document.getElementById('lager').checked);
         if(buildings){
-            if(oldAusbauSelection != document.getElementById('ausbau').value || oldGebäudeSelection != document.getElementById('gebaeudeArt').value || oldNumPeopleSelection != document.getElementById('minPerson').value){
+            if(oldAusbauSelection != document.getElementById('ausbau').value || oldGebäudeSelection != document.getElementById('gebaeudeArt').value || oldNumPeopleSelection != document.getElementById('minPerson').value ||
+               oldLagerSelection != document.getElementById('lager').checked){
                 updateRelevantBuildings();
             }
 
