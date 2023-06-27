@@ -1,4 +1,4 @@
-function createOrAssigneDropdownmenu(entryId, text, functionToRun){
+    function createOrAssigneDropdownmenu(entryId, text, functionToRun){
         if(document.getElementById("ownScripts_dropdown_entries") == null){
             let newWindow = document.createElement("li");
             newWindow.setAttribute("class","dropdown");
@@ -26,4 +26,9 @@ function createOrAssigneDropdownmenu(entryId, text, functionToRun){
         document.getElementById("ownScripts_dropdown_entries").append(newWindow);
 
         document.getElementById(entryId).onclick = function() { functionToRun(); return false;};
+    }
+
+
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
     }
