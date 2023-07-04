@@ -93,6 +93,24 @@
                 "name": "Werkfeuerwehr",
                 "cost": 100000,
                 "duration": 7
+            },
+            {
+                "id": 14,
+                "name": "NEA50-Erweiterung",
+                "cost": 100000,
+                "duration": 5
+            },
+            {
+                "id": 15,
+                "name": "NEA200-Erweiterung",
+                "cost": 200000,
+                "duration": 7
+            },
+            {
+                "id": 16,
+                "name": "Lüfter-Erweiterung",
+                "cost": 75000,
+                "duration": 5
             }
         ]
     },
