@@ -2,7 +2,7 @@
 // @name         toggleExtensions
 // @version      1.0.0
 // @description  Ausbauten von Gebäuden komplett (de-)aktivieren
-// @author       DrTraxx neuer Content von mir
+// @author       DrTraxx (updated by Silberfighter)
 // @include      /^https?:\/\/(?:w{3}\.)?(?:polizei\.)?leitstellenspiel\.de\/$/
 // @grant        GM_addStyle
 // ==/UserScript==
