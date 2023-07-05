@@ -25,7 +25,7 @@
 
         document.getElementById("ownScripts_dropdown_entries").append(newWindow);
 
-        document.getElementById(entryId).onclick = function() { functionToRun(); return false;};
+        document.getElementById(entryId).onclick = function() { functionToRun(); event.preventDefault(); return false;};
     }
 
 
