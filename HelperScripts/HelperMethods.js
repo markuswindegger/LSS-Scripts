@@ -21,7 +21,7 @@
         newWindow.setAttribute("role","presentation");
 
         newWindow.innerHTML = `
-        <a class="lightbox-open" id="` + entryId + `" role="menuitem">` + text + `</a>`;
+        <a href="#" id="` + entryId + `" role="menuitem">` + text + `</a>`;
 
         document.getElementById("ownScripts_dropdown_entries").append(newWindow);
 
