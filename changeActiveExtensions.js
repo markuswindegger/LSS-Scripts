@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Change active Extensions
+// @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
 // @version      1
 // @description  Change the status of expensions
