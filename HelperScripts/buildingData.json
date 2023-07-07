@@ -396,7 +396,7 @@
         "extensions": [
             {
                 "id": 0,
-                "name": "1. Technischer Zug: Bergungsgruppe 2",
+                "name": "1. Technischer Zug: Fachgruppe Notversorgung/Notinstandsetzung",
                 "cost": 25000,
                 "duration": 7
             },
@@ -426,7 +426,7 @@
             },
             {
                 "id": 5,
-                "name": "2. Technischer Zug: Bergungsgruppe 2",
+                "name": "2. Technischer Zug: Fachgruppe Notversorgung/Notinstandsetzung",
                 "cost": 25000,
                 "duration": 7
             },
