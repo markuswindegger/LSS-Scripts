@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1
+// @version      1.1
 // @description  Change the status of expensions
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
@@ -19,12 +19,10 @@
         await $.getJSON('/api/buildings').done(data => sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: new Date().getTime(), value: LZString.compressToUTF16(JSON.stringify(data)), userId: user_id })));
     }
 
-    var buildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value));
-
     const buildingData = await $.getJSON("https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/buildingData.json");
 
 
-let baseID = "extensionsToggle";
+    let baseID = "extensionsToggle";
 
     // Create the overlay container
     var overlayContainer = document.createElement('div');
@@ -34,15 +32,16 @@ let baseID = "extensionsToggle";
     // Create the overlay content
     var overlayContent = document.createElement('div');
     overlayContent.id = baseID + '-overlay-content';
+    overlayContent.className = "modal-content";
     overlayContainer.appendChild(overlayContent);
 
-    // Create the close button
-    var closeButton = document.createElement('div');
+    /*    // Create the close button
+    var closeButton = document.createElement('button');
     closeButton.className = "close";
-    closeButton.typeName = "button";
+    closeButton.setAttribute("type","button");
     closeButton.innerHTML = `<span aria-hidden="true">×</span>`;
     closeButton.addEventListener('click', hideOwnCustomOverlay);
-    overlayContent.appendChild(closeButton);
+    overlayContent.appendChild(closeButton);*/
 
     // Customize the overlay styles
     GM_addStyle(`
@@ -63,13 +62,13 @@ let baseID = "extensionsToggle";
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
-            background-color: #fff;
             border-radius: 5px;
             height: 650px;
             width: 650px;
             overflow-y: auto;
         }
     `);
+
 
     // Function to show the overlay
     async function showOwnCustomOverlay() {
@@ -80,8 +79,6 @@ let baseID = "extensionsToggle";
         if (!sessionStorage.cBuildings || JSON.parse(sessionStorage.cBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60) || JSON.parse(sessionStorage.cBuildings).userId != user_id) {
             await $.getJSON('/api/buildings').done(data => sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: new Date().getTime(), value: LZString.compressToUTF16(JSON.stringify(data)), userId: user_id })));
         }
-
-        buildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value));
 
         document.getElementById(baseID + "WaitMessage").className = "hidden";
     }
@@ -95,9 +92,9 @@ let baseID = "extensionsToggle";
 
     // Add event listener to toggle the overlay on click
     overlayContainer.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent the click event from propagating to underlying elements
         if (event.target === overlayContainer) {
             overlayContainer.style.display = 'none';
+            //event.stopPropagation(); // Prevent the click event from propagating to underlying elements
         }
     });
 
@@ -107,18 +104,20 @@ let baseID = "extensionsToggle";
 
     overlayContent.innerHTML += `
         <div class="overlay-header" id="`+baseID+`OverlayHeader">
+        <div>
             <h1 id="`+baseID+`WaitMessage" class="hidden" style="color:red;"><center>BITTE WARTEN, Daten laden</center></h1>
             <h3><center>Gebäudeerweiterungen de-/aktivieren</center></h3>
             <h5><center>NICHT mehrere Erweiterungen gleichzeitig de-/aktivieren. Immer nur eine zur selben Zeit</center></h5>
             <h5><center>Warte 5 Minuten nach dem Bauen/Ändern von Gebäuden/Erweiterungen, bevor das Skript verwendet wird. Andernfalls kann es passieren, dass das Skript nicht den neuesten Gebäudestand berücksichtigt. </center></h5>
         </div>
+        </div>
         <div class="overlay-body" id="`+baseID+`OverlayBody">
         </div>
-    `
+    `;
 
 
     // Create the dropdown menu
-    var dropdown = document.createElement('select');
+    let dropdown = document.createElement('select');
     dropdown.id = baseID + '-overlay-dropdown';
     document.getElementById(baseID + "OverlayHeader").appendChild(dropdown);
 
@@ -127,7 +126,7 @@ let baseID = "extensionsToggle";
         if(relevantBuildingsID.indexOf(buildingData[i].id) >= 0){
             var option = document.createElement('option');
             option.textContent = buildingData[i].name;
-            option.value  = buildingData[i].id;
+            option.value = buildingData[i].id;
             dropdown.appendChild(option);
         }
     }
@@ -142,15 +141,16 @@ let baseID = "extensionsToggle";
         // Perform desired actions based on the selected value
     });
 
+    delete dropdown;
+
 
     function addExtensionsToList(relevantBuilding){
-        var relevantExtensions = relevantBuilding.extensions;
-        var buildingIDs = [relevantBuilding.id];
-        console.log(relevantExtensions);
+        let relevantExtensions = relevantBuilding.extensions;
+        let buildingIDs = getRelevantBuildingID(relevantBuilding.id);
 
         document.getElementById(baseID + "OverlayBody").innerHTML = "";
 
-        let allRelevantBuildings = buildings.filter(e => buildingIDs.indexOf(e.building_type) >= 0);
+        let allRelevantBuildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value)).filter(e => buildingIDs.indexOf(e.building_type) >= 0);
 
 
         document.getElementById(baseID + "OverlayBody").innerHTML += `
@@ -207,10 +207,13 @@ let baseID = "extensionsToggle";
 
 
     async function deActiveateExtensions(clickedButton){
+        let buildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value));
 
-        let buildingsID = clickedButton.getAttribute("building_id");
+        let buildingsID = getRelevantBuildingID(clickedButton.getAttribute("building_id"));
         let extensionID = clickedButton.getAttribute("extension_id");
         let activateExtensions = clickedButton.getAttribute("shouldActivate") === 'true';
+
+        console.log(buildingsID);
 
 
         let allRelevantBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0 && e.extensions.filter(exten => exten.type_id == extensionID && exten.available && exten.enabled != activateExtensions).length > 0);
@@ -234,6 +237,8 @@ let baseID = "extensionsToggle";
             await delay(50);
         }
 
+        sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
+
         let allUpdatedBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0);
         let allActiveUpdatedBuildings = allUpdatedBuildings.filter(e => e.extensions.filter(exten => exten.type_id == extensionID && exten.available && exten.enabled == true).length > 0);
         let allDeactiveUpdatedBuildings = allUpdatedBuildings.filter(e => e.extensions.filter(exten => exten.type_id == extensionID && exten.available && exten.enabled == false).length > 0);
@@ -242,4 +247,24 @@ let baseID = "extensionsToggle";
 
         document.getElementById("pgExtension"+extensionID).innerHTML="FERTIG";
     }
+
+    //sorgt dafür, dass auch die entsprechenden Kleinwachen mit berücksichtigt werden
+    function getRelevantBuildingID(relevantBuildingID){
+        relevantBuildingID = Number(relevantBuildingID);
+
+        if(relevantBuildingID == 0){
+            return [0,18];
+        }
+
+        if(relevantBuildingID == 6){
+            return [6,19];
+        }
+
+        if(relevantBuildingID == 2){
+            return [2,20];
+        }
+
+        return [relevantBuildingID];
+    }
+
 })();
