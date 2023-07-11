@@ -5,6 +5,7 @@
 // @description  Change the status of expensions
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
+// @include      /^https?:\/\/(?:w{3}\.)?(?:polizei\.)?leitstellenspiel\.de\/$/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @require      https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/HelperMethods.js
 // @grant        GM_addStyle
