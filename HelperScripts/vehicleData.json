@@ -1162,7 +1162,7 @@
 	{
 		"id": 60,
 		"name": "Gerätewagen Sanität",
-		"short_name": "GW-SAN",
+		"short_name": "GW-San",
 		"class": ["gw_san"],
 		"class_alias": ["GW-San"],
 		"cost": 5000,
