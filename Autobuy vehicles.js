@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy vehicles
 // @namespace    http://tampermonkey.net/
-// @version      1
+// @version      1.1.1
 // @description  Create different settings for vehicle purchases
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -147,7 +147,7 @@
     let wrapperDIV = document.createElement("div");
     wrapperDIV.innerText = "Vehicle-Configs:";
     wrapperDIV.style.padding = "15px 5px 15px 5px";
-    $("#tabs")[0].parentNode.before(wrapperDIV);
+    document.getElementsByTagName("hr")[0].parentNode.insertBefore(wrapperDIV, document.getElementsByTagName("hr")[0].nextSibling);
 
 
     for(let i = 0; i < vehicleConfigurations.length; i++){
