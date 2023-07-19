@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy vehicles
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Create different settings for vehicle purchases
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -129,16 +129,21 @@
     buildingId = buildingId.replace("https://www.leitstellenspiel.de/buildings/","");
 
 
-    let buildingTypeID = Array.from(document.getElementsByTagName("h1"));
-    buildingTypeID = buildingTypeID.filter(e => e.getAttribute("building_type") != undefined);
+    let titleDiv = Array.from(document.getElementsByTagName("h1"));
+    titleDiv = titleDiv.filter(e => e.getAttribute("building_type") != undefined);
 
 
-    if(buildingTypeID.length == 0){
+    if(titleDiv.length == 0){
         return;
     }
 
-    buildingTypeID = Number(buildingTypeID[0].getAttribute("building_type"));
+    titleDiv = titleDiv[0];
 
+    let buildingTypeID = Number(titleDiv.getAttribute("building_type"));
+
+    if(buildingTypeID == 7 || buildingTypeID == 4){
+        return;
+    }
 
     let allVehicles;
     updateAllVehicles();
@@ -147,7 +152,7 @@
     let wrapperDIV = document.createElement("div");
     wrapperDIV.innerText = "Vehicle-Configs:";
     wrapperDIV.style.padding = "15px 5px 15px 5px";
-    document.getElementsByTagName("hr")[0].parentNode.insertBefore(wrapperDIV, document.getElementsByTagName("hr")[0].nextSibling);
+    titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
 
 
     for(let i = 0; i < vehicleConfigurations.length; i++){
