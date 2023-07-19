@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy vehicles
 // @namespace    http://tampermonkey.net/
-// @version      1.1.2
+// @version      1.1.3
 // @description  Create different settings for vehicle purchases
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -125,6 +125,9 @@
     ];
 
 
+    const buildingsIDToIgnore = [4,7,1,3,8,10];
+
+
     let buildingId = window.location.href;
     buildingId = buildingId.replace("https://www.leitstellenspiel.de/buildings/","");
 
@@ -141,7 +144,7 @@
 
     let buildingTypeID = Number(titleDiv.getAttribute("building_type"));
 
-    if(buildingTypeID == 7 || buildingTypeID == 4){
+    if(buildingsIDToIgnore.indexOf(buildingTypeID) >= 0){
         return;
     }
 
