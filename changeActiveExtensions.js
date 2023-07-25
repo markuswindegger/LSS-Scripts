@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Change the status of expensions
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
@@ -100,7 +100,7 @@
     });
 
 
-    const relevantBuildingsID = [0,4,6,9,11,12,13,17];
+    const relevantBuildingsID = [0,4,5,6,9,11,12,13,15,17,21];
     const extensionsToIgnore = ["Abrollbehälter-Stellplatz", "Großwache", "Zelle"];
 
     overlayContent.innerHTML += `
@@ -154,10 +154,26 @@
         let allRelevantBuildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value)).filter(e => buildingIDs.indexOf(e.building_type) >= 0);
 
 
+        let activ = allRelevantBuildings.filter(e => e.enabled == true);
+        let deactiv = allRelevantBuildings.filter(e => e.enabled == false);
+
         document.getElementById(baseID + "OverlayBody").innerHTML += `
             <div class="panel panel-default">
                 <div class="panel-heading">
                     `+ allRelevantBuildings.length+` Gebäude gebaut
+                </div>
+                <div class="panel-body">
+                    <div  style="margin-top:1em">
+                        <div id="labelActivateBuilding" style="display:inline;">`+activ.length+` aktiviert</div>
+                        <a id="activateBuilding" class="btn btn-success btn-xs building_clicked" building_id="${ relevantBuilding.id }" shouldActivate=true>alle aktivieren</a>
+                    </div>
+                    <div>
+                        <div id="labelDeactivateBuilding" style="display:inline;">`+deactiv.length+` deaktiviert</div>
+                        <a id="deactivateBuilding" class="btn btn-danger btn-xs building_clicked" building_id="${ relevantBuilding.id }" shouldActivate=false>alle deaktivieren</a>
+                    </div>
+                    <div class="progress hidden" style="margin-top:1em">
+                        <div id="pgBuildings" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="width: 0%;color: black"></div>
+                    </div>
                 </div>
             </div>`
 
@@ -198,6 +214,13 @@
         }
 
         // Add event listener to each element
+        document.querySelectorAll('.building_clicked').forEach(function(element) {
+            element.addEventListener('click', function() {
+                deActiveateBuilding(element);
+            });
+        });
+
+        // Add event listener to each element
         document.querySelectorAll('.extension_clicked').forEach(function(element) {
             element.addEventListener('click', function() {
                 deActiveateExtensions(element);
@@ -205,6 +228,47 @@
         });
     }
 
+
+    async function deActiveateBuilding(clickedButton){
+        let buildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value));
+
+        let buildingsID = getRelevantBuildingID(clickedButton.getAttribute("building_id"));
+        let activateBuilding = clickedButton.getAttribute("shouldActivate") === 'true';
+
+        console.log(buildingsID);
+
+
+        let allRelevantBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0 && e.enabled != activateBuilding);
+
+        document.getElementById("pgBuildings").setAttribute("aria-valuemax", allRelevantBuildings.length);
+        document.getElementById("pgBuildings").parentNode.className = "progress";
+        document.getElementById("pgBuildings").innerHTML="";
+
+        console.log(allRelevantBuildings);
+
+        let count = 0;
+        for(let i = 0; i < allRelevantBuildings.length; i++){
+
+            await $.post("/buildings/" + allRelevantBuildings[i].id + "/active", { "_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+
+            buildings.find(e => e.id == allRelevantBuildings[i].id).enabled = activateBuilding;
+            count ++;
+            document.getElementById("pgBuildings").setAttribute("aria-valuenow", count);
+            document.getElementById("pgBuildings").style.width = (count/allRelevantBuildings.length*100) + "%";
+
+            await delay(50);
+        }
+
+        sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
+
+        let allUpdatedBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0);
+        let allActiveUpdatedBuildings = allUpdatedBuildings.filter(e => e.enabled == true);
+        let allDeactiveUpdatedBuildings = allUpdatedBuildings.filter(e => e.enabled == false);
+        document.getElementById("labelActivateBuilding").innerHTML = allActiveUpdatedBuildings.length + " aktiviert";
+        document.getElementById("labelDeactivateBuilding").innerHTML = allDeactiveUpdatedBuildings.length + " deaktiviert";
+
+        document.getElementById("pgBuildings").innerHTML="FERTIG";
+    }
 
 
     async function deActiveateExtensions(clickedButton){
