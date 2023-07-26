@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1.2.2
-// @description  Change the status of expensions
+// @version      1.3
+// @description  Change the status of expensions and buildings
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
 // @include      /^https?:\/\/(?:w{3}\.)?(?:polizei\.)?leitstellenspiel\.de\/$/
@@ -79,6 +79,8 @@
         document.getElementById(baseID + "WaitMessage").className = "";
 
         if (!sessionStorage.cBuildings || JSON.parse(sessionStorage.cBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60) || JSON.parse(sessionStorage.cBuildings).userId != user_id) {
+            dropdown.value = -1;
+            addExtensionsToList(undefined);
             await $.getJSON('/api/buildings').done(data => sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: new Date().getTime(), value: LZString.compressToUTF16(JSON.stringify(data)), userId: user_id })));
         }
 
@@ -106,11 +108,14 @@
 
     overlayContent.innerHTML += `
         <div class="overlay-header" id="`+baseID+`OverlayHeader">
-        <div>
+        <div style={text-align: left;}>
             <h1 id="`+baseID+`WaitMessage" class="hidden" style="color:red;"><center>BITTE WARTEN, Daten laden</center></h1>
             <h3><center>Gebäudeerweiterungen de-/aktivieren</center></h3>
             <h5><center>NICHT mehrere Erweiterungen gleichzeitig de-/aktivieren. Immer nur eine zur selben Zeit</center></h5>
-            <h5><center>Warte 5 Minuten nach dem Bauen/Ändern von Gebäuden/Erweiterungen, bevor das Skript verwendet wird. Andernfalls kann es passieren, dass das Skript nicht den neuesten Gebäudestand berücksichtigt. </center></h5>
+            <h5>Schließe dieses Pop-Up und öffne es in 5 Minuten erneut, falls eines der folgenden Punkte in den letzten 5 Minuten passiert ist:</br>
+            - ein Gebäude/Erweiterunge wurde gebaut/geändert</br>
+            - der letzte Vorgang in diesem Pop-Up wurde vor dem Erscheinen von "Fertig" abgebrochen</br>
+            Andernfalls kann es passieren, dass das Skript nicht den neuesten Gebäudestand berücksichtigt. </h5>
         </div>
         </div>
         <div class="overlay-body" id="`+baseID+`OverlayBody">
@@ -147,10 +152,14 @@
 
 
     function addExtensionsToList(relevantBuilding){
+        document.getElementById(baseID + "OverlayBody").innerHTML = "";
+
+        if(relevantBuilding == undefined){
+            return;
+        }
+
         let relevantExtensions = relevantBuilding.extensions;
         let buildingIDs = getRelevantBuildingID(relevantBuilding.id);
-
-        document.getElementById(baseID + "OverlayBody").innerHTML = "";
 
         let allRelevantBuildings = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cBuildings).value)).filter(e => buildingIDs.indexOf(e.building_type) >= 0);
 
@@ -254,29 +263,37 @@
             // GET Request using fetch
             await fetch("/buildings/" + allRelevantBuildings[i].id + "/active")
                 .then(response => {
-                console.log(response);
+                //console.log(response);
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    //throw new Error('Network response was not ok');
                 }
                 return response; // Parse the response data as JSON
             })
                 .then(data => {
                 // Code to execute when the fetch is successful
-                buildings.find(e => e.id == allRelevantBuildings[i].id).enabled = activateBuilding;
             })
                 .catch(error => {
                 // Code to handle errors or failed fetch
-                console.log(error);
-                console.log("Status of building "+allRelevantBuildings[i].id+" could not be changed");
+                //ANMERKUNG: Trotz Fehlermeldung hat er die Einsatzbereitschaft geändert. Daher werden auftretende Fehler ignoriert
             });
 
             count ++;
             document.getElementById("pgBuildings").setAttribute("aria-valuenow", count);
             document.getElementById("pgBuildings").style.width = (count/allRelevantBuildings.length*100) + "%";
 
-            await delay(100);
+            await delay(50);
         }
+
+
+        let allRelevantBuildingsID = allRelevantBuildings.map(e => e.id);
+
+        for(let i = 0; i < buildings.length; i++){
+            if(allRelevantBuildingsID.indexOf(Number(buildings[i].id)) >= 0){
+                buildings[i].enabled = activateBuilding;
+            }
+        }
+
 
         sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
 
@@ -324,29 +341,43 @@
                 })
             })
                 .then(response => {
-                console.log(response);
+                //console.log(response);
 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    //throw new Error('Network response was not ok');
                 }
                 return response; // Parse the response data as JSON
             })
                 .then(data => {
                 // Code to execute when the fetch is successful
-                buildings.find(e => e.id == allRelevantBuildings[i].id).extensions.find(exten => exten.type_id == extensionID).enabled = activateExtensions;
+                //buildings.find(e => e.id == allRelevantBuildings[i].id).extensions.find(exten => exten.type_id == extensionID).enabled = activateExtensions;
             })
                 .catch(error => {
                 // Code to handle errors or failed fetch
-                console.log(error);
-                console.log("Status of extension "+extensionID+" of building "+allRelevantBuildings[i].id+" could not be changed");
+                //ANMERKUNG: Trotz Fehlermeldung hat er die Einsatzbereitschaft geändert. Daher werden auftretende Fehler ignoriert
             });
 
             count ++;
             document.getElementById("pgExtension"+extensionID).setAttribute("aria-valuenow", count);
             document.getElementById("pgExtension"+extensionID).style.width = (count/allRelevantBuildings.length*100) + "%";
 
-            await delay(100);
+            await delay(50);
         }
+
+
+        let allRelevantBuildingsID = allRelevantBuildings.map(e => e.id);
+
+        for(let i = 0; i < buildings.length; i++){
+            if(allRelevantBuildingsID.indexOf(Number(buildings[i].id)) >= 0){
+                for(let n = 0; n < buildings[i].extensions.length; n++){
+                    if(buildings[i].extensions[n].type_id == extensionID){
+                        buildings[i].extensions[n].enabled = activateExtensions;
+                    }
+                }
+            }
+        }
+
+
         sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
 
         let allUpdatedBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0);
