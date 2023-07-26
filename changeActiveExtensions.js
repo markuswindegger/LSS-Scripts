@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.2.2
 // @description  Change the status of expensions
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
@@ -252,9 +252,25 @@
 
             //await $.post("/buildings/" + allRelevantBuildings[i].id + "/active");
             // GET Request using fetch
-            await fetch("/buildings/" + allRelevantBuildings[i].id + "/active");
+            await fetch("/buildings/" + allRelevantBuildings[i].id + "/active")
+                .then(response => {
+                console.log(response);
 
-            buildings.find(e => e.id == allRelevantBuildings[i].id).enabled = activateBuilding;
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response; // Parse the response data as JSON
+            })
+                .then(data => {
+                // Code to execute when the fetch is successful
+                buildings.find(e => e.id == allRelevantBuildings[i].id).enabled = activateBuilding;
+            })
+                .catch(error => {
+                // Code to handle errors or failed fetch
+                console.log(error);
+                console.log("Status of building "+allRelevantBuildings[i].id+" could not be changed");
+            });
+
             count ++;
             document.getElementById("pgBuildings").setAttribute("aria-valuenow", count);
             document.getElementById("pgBuildings").style.width = (count/allRelevantBuildings.length*100) + "%";
@@ -306,9 +322,25 @@
                     "_method": "post",
                     "authenticity_token": $("meta[name=csrf-token]").attr("content")
                 })
+            })
+                .then(response => {
+                console.log(response);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response; // Parse the response data as JSON
+            })
+                .then(data => {
+                // Code to execute when the fetch is successful
+                buildings.find(e => e.id == allRelevantBuildings[i].id).extensions.find(exten => exten.type_id == extensionID).enabled = activateExtensions;
+            })
+                .catch(error => {
+                // Code to handle errors or failed fetch
+                console.log(error);
+                console.log("Status of extension "+extensionID+" of building "+allRelevantBuildings[i].id+" could not be changed");
             });
 
-            buildings.find(e => e.id == allRelevantBuildings[i].id).extensions.find(exten => exten.type_id == extensionID).enabled = activateExtensions;
             count ++;
             document.getElementById("pgExtension"+extensionID).setAttribute("aria-valuenow", count);
             document.getElementById("pgExtension"+extensionID).style.width = (count/allRelevantBuildings.length*100) + "%";
