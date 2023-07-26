@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.2.1
 // @description  Change the status of expensions
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
@@ -10,6 +10,7 @@
 // @require      https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/HelperMethods.js
 // @grant        GM_addStyle
 // ==/UserScript==
+/* global $ */
 
 (async function() {
 
@@ -235,7 +236,7 @@
         let buildingsID = getRelevantBuildingID(clickedButton.getAttribute("building_id"));
         let activateBuilding = clickedButton.getAttribute("shouldActivate") === 'true';
 
-        console.log(buildingsID);
+        //console.log(buildingsID);
 
 
         let allRelevantBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0 && e.enabled != activateBuilding);
@@ -244,19 +245,21 @@
         document.getElementById("pgBuildings").parentNode.className = "progress";
         document.getElementById("pgBuildings").innerHTML="";
 
-        console.log(allRelevantBuildings);
+        //console.log(allRelevantBuildings);
 
         let count = 0;
         for(let i = 0; i < allRelevantBuildings.length; i++){
 
-            await $.post("/buildings/" + allRelevantBuildings[i].id + "/active", { "_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+            //await $.post("/buildings/" + allRelevantBuildings[i].id + "/active");
+            // GET Request using fetch
+            await fetch("/buildings/" + allRelevantBuildings[i].id + "/active");
 
             buildings.find(e => e.id == allRelevantBuildings[i].id).enabled = activateBuilding;
             count ++;
             document.getElementById("pgBuildings").setAttribute("aria-valuenow", count);
             document.getElementById("pgBuildings").style.width = (count/allRelevantBuildings.length*100) + "%";
 
-            await delay(50);
+            await delay(100);
         }
 
         sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
@@ -278,7 +281,7 @@
         let extensionID = clickedButton.getAttribute("extension_id");
         let activateExtensions = clickedButton.getAttribute("shouldActivate") === 'true';
 
-        console.log(buildingsID);
+        //console.log(buildingsID);
 
 
         let allRelevantBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0 && e.extensions.filter(exten => exten.type_id == extensionID && exten.available && exten.enabled != activateExtensions).length > 0);
@@ -287,21 +290,31 @@
         document.getElementById("pgExtension"+extensionID).parentNode.className = "progress";
         document.getElementById("pgExtension"+extensionID).innerHTML="";
 
-        console.log(allRelevantBuildings);
+        //console.log(allRelevantBuildings);
 
         let count = 0;
         for(let i = 0; i < allRelevantBuildings.length; i++){
 
-            await $.post("/buildings/" + allRelevantBuildings[i].id + "/extension_ready/" + extensionID + "/" + allRelevantBuildings[i].id, { "_method": "post", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+            //await $.post("/buildings/" + allRelevantBuildings[i].id + "/extension_ready/" + extensionID + "/" + allRelevantBuildings[i].id);
+            // POST Request using fetch
+            await fetch("/buildings/" + allRelevantBuildings[i].id + "/extension_ready/" + extensionID + "/" + allRelevantBuildings[i].id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: encodeFormData({
+                    "_method": "post",
+                    "authenticity_token": $("meta[name=csrf-token]").attr("content")
+                })
+            });
 
             buildings.find(e => e.id == allRelevantBuildings[i].id).extensions.find(exten => exten.type_id == extensionID).enabled = activateExtensions;
             count ++;
             document.getElementById("pgExtension"+extensionID).setAttribute("aria-valuenow", count);
             document.getElementById("pgExtension"+extensionID).style.width = (count/allRelevantBuildings.length*100) + "%";
 
-            await delay(50);
+            await delay(100);
         }
-
         sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: JSON.parse(sessionStorage.cBuildings).lastUpdate, value: LZString.compressToUTF16(JSON.stringify(buildings)), userId: JSON.parse(sessionStorage.cBuildings).userId }));
 
         let allUpdatedBuildings = buildings.filter(e => buildingsID.indexOf(e.building_type) >= 0);
@@ -330,6 +343,13 @@
         }
 
         return [relevantBuildingID];
+    }
+
+    // Function to convert an object to x-www-form-urlencoded format
+    function encodeFormData(data) {
+        return Object.keys(data)
+            .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+            .join('&');
     }
 
 })();
