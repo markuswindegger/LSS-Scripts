@@ -3,7 +3,7 @@
 // @namespace    empty
 // @version      0.1
 // @description  assign People with a button push
-// @author       You
+// @author       Silberfighter
 // @match        https://www.leitstellenspiel.de/vehicles/*/zuweisung
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
@@ -13,7 +13,7 @@
     'use strict';
 
     //------- you can change this variables -------
-
+    //Anleitung
 
     //für Fahrzeuge in dieser Liste können Personen per Knopfdruck zugewiesen werden.
     //erstes Feld: Fahrzeug ID z.B. "35"
