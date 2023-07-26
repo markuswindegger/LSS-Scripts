@@ -11,12 +11,17 @@
 
 (async function() {
 
-    //------- you can change this variables -------
+    //Anleitung:
+    // mit diesem Skript kann die maximale Personenanzahl für alle Fahrzeuge in einem Gebäude mit einem Knopfdruck geändert werden
 
-    // Beispiel:     [[50,1]]     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal eine Person gesetzt
-    // Beispiel:     [[50,2],[51,3]]     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal 2 Personen gesetzt, Fahrzeuge mit der VehicleId 51 (FüKw) werden auf maximal 3 Personen gesetzt
+    // Füge dazu die Einträge im unten markierten Bereich ein 
+    // Beispiel:     [50,1],     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal eine Person gesetzt
+    // Beispiel:     [50,2],[51,3],     Fahrzeuge mit der VehicleId 50 (GruKw) werden auf maximal 2 Personen gesetzt, Fahrzeuge mit der VehicleId 51 (FüKw) werden auf maximal 3 Personen gesetzt
 
+    //Die bereits vorhandenen Einträge dienen als Beispiel und können rausgelöscht werden
+    
     var vehicleTypeIdToClassName = [
+    //---------------- Einträge unterhalb hiervon einfügen ----------------  
         [35, 1],
         [50, 1],
         [72, 1],
@@ -25,10 +30,10 @@
         [81, 1],
         [82, 1],
         [94, 1],
-        [52, 1]
+        [52, 1],
+    //---------------- Einträge oberhalb hiervon einfügen ----------------  
     ];
 
-    //------- after here change only stuff if you know what you are doing -------
 
     $("#vehicle_table")
         .before(`<a class="btn btn-success btn-xs" id="changeMaxPerson">
