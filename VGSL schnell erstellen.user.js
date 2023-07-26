@@ -14,21 +14,23 @@
 
     //*********************************************************
 
-    //unten im markierten Bereich die Namen der VGSL reinkopieren für welche Buttons generiert werden sollen
-    //falls nach dem namen der VGSL in Runden Klammern der Spielername steht, muss dieser ebenfalls mitkopiert werden
+    //Anleitung:
+    //füge unten im markierten Bereich die Namen der VGSL ein, für welche Buttons generiert werden sollen
+    //trage dazu den gesamten Text aus dem Dropdown-Menu inklusive des Spielername ein.
 
-    //Der Namen muss in Anführungszeichen geschrieben sein und danach muss ein Komma folgen
-    //der Eintrag sollte dann z.B. wie folgt aussehen:    "Name des GSL (Spielername)",
-    //der Eintrag sollte dann z.B. wie folgt aussehen:    "Name des GSL",
-
-    //dies kann für beliebig viele Einsätze wiederholt werden
+    //Der Namen muss in Anführungszeichen geschrieben sein und danach muss ein Komma folgen.
+    //Ein beispielhafter Eintrag kann dann wie folgt aussehen:
+    //    "Name des GSL (Spielername)",
+    
+    //dies kann für beliebig viele Einsätze wiederholt werden.
+    //die 2 vorhandenen beispielhaften Einträge dienen der Veranschaulichung und können gelöscht werden
 
     //*********************************************************
 
     var missionNameList = [
         //-------- ab hier Einträge einfügen --------
         "tGSL: Großfeuer Lagerhalle (Smokejumper-Micha)",
-        "VerrückterSaarländer rd live55"
+        "50 Coins ausgeben ;-) (Dein_Vater)",
         //-------- bis hier Einträge einfügen --------
     ];
 
