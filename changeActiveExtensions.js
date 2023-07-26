@@ -256,7 +256,6 @@
 
         //console.log(allRelevantBuildings);
 
-        let count = 0;
         for(let i = 0; i < allRelevantBuildings.length; i++){
 
             //await $.post("/buildings/" + allRelevantBuildings[i].id + "/active");
@@ -278,9 +277,8 @@
                 //ANMERKUNG: Trotz Fehlermeldung hat er die Einsatzbereitschaft geändert. Daher werden auftretende Fehler ignoriert
             });
 
-            count ++;
-            document.getElementById("pgBuildings").setAttribute("aria-valuenow", count);
-            document.getElementById("pgBuildings").style.width = (count/allRelevantBuildings.length*100) + "%";
+            document.getElementById("pgBuildings").setAttribute("aria-valuenow", i + 1);
+            document.getElementById("pgBuildings").style.width = ((i + 1)/allRelevantBuildings.length*100) + "%";
 
             await delay(50);
         }
@@ -325,7 +323,6 @@
 
         //console.log(allRelevantBuildings);
 
-        let count = 0;
         for(let i = 0; i < allRelevantBuildings.length; i++){
 
             //await $.post("/buildings/" + allRelevantBuildings[i].id + "/extension_ready/" + extensionID + "/" + allRelevantBuildings[i].id);
@@ -357,9 +354,8 @@
                 //ANMERKUNG: Trotz Fehlermeldung hat er die Einsatzbereitschaft geändert. Daher werden auftretende Fehler ignoriert
             });
 
-            count ++;
-            document.getElementById("pgExtension"+extensionID).setAttribute("aria-valuenow", count);
-            document.getElementById("pgExtension"+extensionID).style.width = (count/allRelevantBuildings.length*100) + "%";
+            document.getElementById("pgExtension"+extensionID).setAttribute("aria-valuenow", (i + 1));
+            document.getElementById("pgExtension"+extensionID).style.width = ((i + 1)/allRelevantBuildings.length*100) + "%";
 
             await delay(50);
         }
