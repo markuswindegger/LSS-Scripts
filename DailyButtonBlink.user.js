@@ -13,6 +13,10 @@
 (function() {
     'use strict';
 
+    // BESCHREIBUNG:
+    // während Events (z.B. Advent) wird der "täglicher Login"-Knopf durch ein Dropdown-Menu ersetzt.
+    // Da das Vergessen des Einsammels besondern ärgerlich ist, lässt dieses Skript den Knopf blinken und öffnet das Drop-Down Menu beim erstmaligen Laden der Webseite automatisch
+    
     //------- you can change this variables -------
 
     var blink_speed = 850;  //blinkingspeed.  1000 is equals to 1 second
