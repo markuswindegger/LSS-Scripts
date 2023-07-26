@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name        Lehrgänge leichter mit Personal füllen
+// @name         Lehrgänge leichter mit Personal füllen
 // @namespace    http://tampermonkey.net/
 // @version      1.2
 // @description  enables the filtering of buildings in the creation of courses and select people faster!
-// @author      Silberfighter
+// @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
 // @include      https://www.leitstellenspiel.de/schoolings/*
-// @icon        https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
 // ==/UserScript==
 
@@ -15,7 +15,6 @@
 
     await $.getScript("https://api.lss-cockpit.de/lib/utf16convert.js");
 
-    //------- you can change this variables -------
 
     //Mit dieser Variable können Standard-Filter-Werte für einzelne Lehrgänge festgelegt werden
     //Dabei muss man wie folgt vorgehen:
@@ -46,17 +45,18 @@
 
     //7. Diesen nun generierten Eintrag fügst du unten zwischen den beiden Kommentaren ein. Ob du alle Einträge in eine Zeile schreibst oder in eine Zeile nur einen Eintrag ist egal.
 
+    //Die zur Zeit darin befindlichen Einträge sind Beispiele und können rausgelöscht werden
+
     var standardFilterWerte = [
         //***** unterhalb von hier einfügen *****
 
-        //["SEK","11","SEK","18","53"],
-        //["MEK","11","MEK","18","53"],
+        ["SEK","11","SEK","18","53"],
+        ["MEK","11","MEK","18","53"],
 
 
         //***** oberhalb von hier einfügen *****
     ];
 
-    //------- after here change only stuff if you know what you are doing -------
 
     var defaultValueSettings = [["","","","",""]]
 
