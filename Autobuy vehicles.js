@@ -38,7 +38,7 @@
 
 
         2. tausche die 11 in folgender Zeile    buildingID: 11,     durch die Gebäude-ID, für welche ein Eintrag erstellt werden soll. Lösche nicht das Komma am Ende!!!
-           ANMERKUNG: Verwende für Kleinwachen die Gebäude-ID der entsprechenden "normalgroßen" Wache
+           ANMERKUNG: Verwende für Kleinwachen die Gebäude-ID der entsprechenden "normalgroßen" Wache!!!!
 
         3. trage in folgender Zeile     displayName: "",     zwischen die beiden Gänsefüßchen den Namen der Konfiguration ein. Dieser Name wird auf den klickbaren Knopf angezeigt. Lösche nicht das Komma am Ende!!!
 
