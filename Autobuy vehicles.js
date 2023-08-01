@@ -54,6 +54,10 @@
         Wenn z.B. bereits 3 GruKw vorhanden sind, werden nur 6 weitere gekauft, sodass am Ende 9 vorhanden sind
 
 
+        Hinweis für Fortgeschrittene: Das Skript kauft Fahrzeuge in der Reihenfolge, wie sie in der Liste hinterlegt sind. Der letzte Platz in der Liste wird somit als aller letztes gekauft. 
+        Es macht somit Sinn z.B. LF's und HLF's in die Liste ganz hinten hinzupacken, damit in dem Fall von zu wenig Stellplätze keine Sonderfahrzeuge wegfallen. 
+        
+
         */
 
         //------- FÜGE EINTRÄGE UNTERHALB EIN -------
