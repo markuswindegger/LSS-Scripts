@@ -173,11 +173,14 @@
     wrapperDIV.innerText = "Vehicle-Configs:";
     wrapperDIV.style.padding = "15px 5px 15px 5px";
 
-    if(placeButtonOnTop)
+    if(placeButtonOnTop){
         titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
+    }
     else
+    {
         $("#vehicle_table")[0].before(wrapperDIV);
-
+    }
+    
 
     for(let i = 0; i < vehicleConfigurations.length; i++){
         if(vehicleConfigurations[i].buildingID == buildingTypeID){
