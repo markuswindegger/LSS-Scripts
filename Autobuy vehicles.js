@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy vehicles
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.1.5
 // @description  Create different settings for vehicle purchases
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -10,6 +10,18 @@
 // ==/UserScript==
 
 (async function() {
+
+    const placeButtonOnTop =
+          //ja nach persönlicher Präferenz können die Knöpfe entweder ganz oben im Gebäude angezeigt werden oder oberhalb der Fahrzeuge im Fahrzeug-Tab
+
+          //falls die Knöpfe ganz oben angezeigt werden sollen, trage im direkt unterhalb befindlichen Bereich eine    1    ein
+          //falls die Knöpfe oberhalb der Fahrzeuge angezeigt werden sollen, trage im direkt unterhalb befindlichen Bereich eine    0    ein
+
+          //Anmerkung: es darf entweder  1  oder  0  im unteren Bereich stehen, nicht beides gleichzeitig und ohne Komma oder sonstige andere Zeichen
+          //----- unterhalb von hier eintragen -----
+          1
+          //----- oberhalb von hier eintragen -----
+    ;
 
 
     const vehicleConfigurations = [
@@ -38,6 +50,7 @@
 
 
         2. tausche die 11 in folgender Zeile    buildingID: 11,     durch die Gebäude-ID, für welche ein Eintrag erstellt werden soll. Lösche nicht das Komma am Ende!!!
+           ANMERKUNG: Verwende für Kleinwachen die Gebäude-ID der entsprechenden "normalgroßen" Wache!!!!
 
         3. trage in folgender Zeile     displayName: "",     zwischen die beiden Gänsefüßchen den Namen der Konfiguration ein. Dieser Name wird auf den klickbaren Knopf angezeigt. Lösche nicht das Komma am Ende!!!
 
@@ -51,6 +64,10 @@
         durch die Fahrzeuge, die gekauft werden sollen. Die erste Zahl ist die Fahrzeug-ID. Die zweite Zahl gibt an, wie viele Fahrzeuge in der Wache vorhanden sein sollen.
         z.B. der Eintrag    [50,9],   bewirkt, dass das Fahrzeug mit der ID 50 (GruKw) am Ende 9 mal in der Wache vorhanden sein wird, NICHT 9 mal gekauft wird. Dies ist relevant, wenn bereits GruKw in der Wache vorhanden sind.
         Wenn z.B. bereits 3 GruKw vorhanden sind, werden nur 6 weitere gekauft, sodass am Ende 9 vorhanden sind
+
+
+        Hinweis für Fortgeschrittene: Das Skript kauft Fahrzeuge in der Reihenfolge, wie sie in der Liste hinterlegt sind. Der letzte Platz in der Liste wird somit als aller letztes gekauft.
+        Es macht somit Sinn z.B. LF's und HLF's in die Liste ganz hinten hinzupacken, damit in dem Fall von zu wenig Stellplätze keine Sonderfahrzeuge wegfallen.
 
 
         */
@@ -155,8 +172,15 @@
     let wrapperDIV = document.createElement("div");
     wrapperDIV.innerText = "Vehicle-Configs:";
     wrapperDIV.style.padding = "15px 5px 15px 5px";
-    titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
 
+    if(placeButtonOnTop){
+        titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
+    }
+    else
+    {
+        $("#vehicle_table")[0].before(wrapperDIV);
+    }
+    
 
     for(let i = 0; i < vehicleConfigurations.length; i++){
         if(vehicleConfigurations[i].buildingID == buildingTypeID){
