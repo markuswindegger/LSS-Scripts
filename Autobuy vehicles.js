@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy vehicles
 // @namespace    http://tampermonkey.net/
-// @version      1.1.4
+// @version      1.1.5
 // @description  Create different settings for vehicle purchases
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -10,6 +10,18 @@
 // ==/UserScript==
 
 (async function() {
+
+    const placeButtonOnTop =
+          //ja nach persönlicher Präferenz können die Knöpfe entweder ganz oben im Gebäude angezeigt werden oder oberhalb der Fahrzeuge im Fahrzeug-Tab
+
+          //falls die Knöpfe ganz oben angezeigt werden sollen, trage im direkt unterhalb befindlichen Bereich eine    1    ein
+          //falls die Knöpfe oberhalb der Fahrzeuge angezeigt werden sollen, trage im direkt unterhalb befindlichen Bereich eine    0    ein
+
+          //Anmerkung: es darf entweder  1  oder  0  im unteren Bereich stehen, nicht beides gleichzeitig und ohne Komma oder sonstige andere Zeichen
+          //----- unterhalb von hier eintragen -----
+          1
+          //----- oberhalb von hier eintragen -----
+    ;
 
 
     const vehicleConfigurations = [
@@ -54,9 +66,9 @@
         Wenn z.B. bereits 3 GruKw vorhanden sind, werden nur 6 weitere gekauft, sodass am Ende 9 vorhanden sind
 
 
-        Hinweis für Fortgeschrittene: Das Skript kauft Fahrzeuge in der Reihenfolge, wie sie in der Liste hinterlegt sind. Der letzte Platz in der Liste wird somit als aller letztes gekauft. 
-        Es macht somit Sinn z.B. LF's und HLF's in die Liste ganz hinten hinzupacken, damit in dem Fall von zu wenig Stellplätze keine Sonderfahrzeuge wegfallen. 
-        
+        Hinweis für Fortgeschrittene: Das Skript kauft Fahrzeuge in der Reihenfolge, wie sie in der Liste hinterlegt sind. Der letzte Platz in der Liste wird somit als aller letztes gekauft.
+        Es macht somit Sinn z.B. LF's und HLF's in die Liste ganz hinten hinzupacken, damit in dem Fall von zu wenig Stellplätze keine Sonderfahrzeuge wegfallen.
+
 
         */
 
@@ -160,7 +172,11 @@
     let wrapperDIV = document.createElement("div");
     wrapperDIV.innerText = "Vehicle-Configs:";
     wrapperDIV.style.padding = "15px 5px 15px 5px";
-    titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
+
+    if(placeButtonOnTop)
+        titleDiv.parentNode.parentNode.insertBefore(wrapperDIV, titleDiv.parentNode.nextSibling);
+    else
+        $("#vehicle_table")[0].before(wrapperDIV);
 
 
     for(let i = 0; i < vehicleConfigurations.length; i++){
