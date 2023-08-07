@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Create different settings for extension build
-// @author       Silberfighter
+// @author       You
 // @include      https://www.leitstellenspiel.de/buildings/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
@@ -23,7 +23,10 @@
 
         **WIRD NOCH GEUPDATET**
 
-        stufe: stufe aug welches es ausgebaut werden soll
+        buildingID: ID des Gebäudes
+           ANMERKUNG: Verwende für Kleinwachen die Gebäude-ID der entsprechenden "normalgroßen" Wache!!!!
+
+        stufe: Gebäude-stufe auf welches es ausgebaut werden soll
 
         ausbauten: ID der Ausbauten eintragen, in wessen Reihenfolge es gebaut werden soll
 
