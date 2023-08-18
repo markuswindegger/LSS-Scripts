@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autobuy Extension **********EARLY ALPHA**********
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.1.1
 // @description  Create different settings for extension build
 // @author       You
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -172,7 +172,7 @@
         if(extensionsConfig.ausbauten != null){
             for(let i = 0; i < extensionsConfig.ausbauten.length; i++){
                 //https://www.leitstellenspiel.de/buildings/15868377/extension/credits/0?redirect_building_id=15868377
-                await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/extension/credits/" + extensionsConfig.ausbauten[i] + "?redirect_building_id=" + buildingId, {"_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+                await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/extension/credits/" + extensionsConfig.ausbauten[i] + "?redirect_building_id=" + buildingId, {"_method": "post", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
                 //console.log("https://www.leitstellenspiel.de/buildings/" + buildingId + "/extension/credits/" + extensionsConfig.ausbauten[i] + "?redirect_building_id=" + buildingId);
                 await delay(100);
                 extensionsBought = true;
@@ -192,7 +192,7 @@
                     case 2: specialisation = "water_rescue"; break;
                 }
 
-                await $.post("https://www.leitstellenspiel.de/building_specializations?building_id=" + buildingId + "&pay_with=credits&type=" + specialisation, {"_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+                await $.post("https://www.leitstellenspiel.de/building_specializations?building_id=" + buildingId + "&pay_with=credits&type=" + specialisation, {"_method": "post", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
                 //console.log("https://www.leitstellenspiel.de/building_specializations?building_id=" + buildingId + "&pay_with=credits&type=" + specialisation);
                 await delay(100);
                 extensionsBought = true;
@@ -212,7 +212,7 @@
                     storage_name = "additional_containers_"+extensionsConfig.lager[i];
                 }
 
-                await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/storage_upgrade/credits/" + storage_name + "?redirect_building_id=" + buildingId, {"_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+                await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/storage_upgrade/credits/" + storage_name + "?redirect_building_id=" + buildingId, {"_method": "post", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
                 //console.log("https://www.leitstellenspiel.de/buildings/" + buildingId + "/storage_upgrade/credits/" + storage_name + "?redirect_building_id=" + buildingId);
                 await delay(100);
                 extensionsBought = true;
