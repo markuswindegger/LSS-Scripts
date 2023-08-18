@@ -2145,5 +2145,10 @@
 		"prerequisites": {
 			"fire_stations": 1
 		}
+	},
+	{
+		"id": 121,
+		"name": "GTLF",
+		"short_name": "GTLF"
 	}
 ]
