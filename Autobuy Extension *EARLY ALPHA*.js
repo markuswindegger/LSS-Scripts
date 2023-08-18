@@ -69,7 +69,7 @@
             buildingID: 21,
             displayName: "Rettungshunde",
             stufe: 1,
-            extension:[]
+            ausbauten:[]
         },
 
         //------- FÜGE EINTRÄGE OBERHALB EIN -------
