@@ -71,6 +71,12 @@
             stufe: 1,
             ausbauten:[]
         },
+        {
+            buildingID: 6,
+            displayName: "Polizeiwache",
+            stufe: 7,
+            ausbauten:[]
+        },
 
         //------- FÜGE EINTRÄGE OBERHALB EIN -------
     ];
@@ -166,7 +172,7 @@
         //console.log(vehicleConfig);
 
         //https://www.leitstellenspiel.de/buildings/18084503/expand_do/credits?level=0
-        await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/expand_do/credits?level=" + (extensionsConfig.stufe-1), {"_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+        //await $.post("https://www.leitstellenspiel.de/buildings/" + buildingId + "/expand_do/credits?level=" + (extensionsConfig.stufe-1), {"_method": "get", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
         //console.log("https://www.leitstellenspiel.de/buildings/" + buildingId + "/expand_do/credits?level=" + (extensionsConfig.stufe-1))
 
         if(extensionsConfig.ausbauten != null){
@@ -220,9 +226,9 @@
         }
 
 
-        if(extensionsBought){
-            location.reload();
-        }
+        //if(extensionsBought){
+        location.reload();
+        //}
         /*else{
             if(allVehiclesBought){
                 messageText.innerText = "Alle Fahrzeuge vorhanden";
