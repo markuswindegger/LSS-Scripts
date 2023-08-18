@@ -26,7 +26,7 @@
         buildingID: ID des Gebäudes
            ANMERKUNG: Verwende für Kleinwachen die Gebäude-ID der entsprechenden "normalgroßen" Wache!!!!
 
-        stufe: Gebäude-stufe auf welches es ausgebaut werden soll
+        stufe: Gebäude-stufe auf welches es ausgebaut werden soll. ANMERKUNG: IST ZUR ZEIT DEAKTIVIERT, DA ES EIN PROBLEM DAMIT GIBT
 
         ausbauten: ID der Ausbauten eintragen, in wessen Reihenfolge es gebaut werden soll
 
