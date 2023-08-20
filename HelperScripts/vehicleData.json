@@ -2147,6 +2147,66 @@
 		}
 	},
 	{
+		"id": 109,
+		"name": "MzGW SB",
+		"short_name": "MzGW SB"
+	},
+	{
+		"id": 110,
+		"name": "NEA50",
+		"short_name": "NEA50 (THW)"
+	},
+	{
+		"id": 111,
+		"name": "NEA50",
+		"short_name": "NEA50 (FW)"
+	},
+	{
+		"id": 112,
+		"name": "NEA200",
+		"short_name": "NEA200 (THW)"
+	},
+	{
+		"id": 113,
+		"name": "NEA200",
+		"short_name": "NEA200 (FW)"
+	},
+	{
+		"id": 114,
+		"name": "GW-Lüfter",
+		"short_name": "GW-Lüfter"
+	},
+	{
+		"id": 115,
+		"name": "Anh Lüfter",
+		"short_name": "Anh Lüfter"
+	},
+	{
+		"id": 116,
+		"name": "AB Lüfter",
+		"short_name": "AB Lüfter"
+	},
+	{
+		"id": 117,
+		"name": "AB-Tank",
+		"short_name": "AB-Tank"
+	},
+	{
+		"id": 118,
+		"name": "Kleintankwagen",
+		"short_name": "Kleintankwagen"
+	},
+	{
+		"id": 119,
+		"name": "AB-Lösch",
+		"short_name": "AB-Lösch"
+	},
+	{
+		"id": 120,
+		"name": "Tankwagen",
+		"short_name": "Tankwagen"
+	},
+	{
 		"id": 121,
 		"name": "GTLF",
 		"short_name": "GTLF"
