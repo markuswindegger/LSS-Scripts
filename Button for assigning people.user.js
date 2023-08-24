@@ -28,15 +28,80 @@
     //beim NAW müssen zwei verschiedene Personengruppen zugewiesen werden. Einmal mit Notarzt-Ausbildung und einmal ohne.
     //Dafür einfach zwei Einträge in der Liste erstellen.
 
-    var list = [
+     var list = [
+        //BePol
         ["35","Zugführer (leBefKw)",1],
         ["50","",1],
-        ["29","",1],
+        ["51", "Hundertschaftsführer (FüKw)", 1],
+        ["72", "Wasserwerfer", 5],
+        ["79", "SEK", 3],
+        ["80", "SEK", 9],
+        ["81", "MEK", 3],
+        ["82", "MEK", 9],
+
+        //RTW
         ["29","Notarzt",1],
         ["74","",2],
         ["74","Notarzt",1],
-    ];
+        ["55", "LNA", 1],
+        ["56", "OrgL", 1],
 
+        //FW
+        ["0", "", 1],
+        ["4", "", 1],
+        ["3", "", 1],
+        ["2", "", 1],
+        ["10", "", 1],
+        ["5", "", 1],
+        ["11", "", 1],
+        ["16", "", 1],
+        ["28", "", 1],
+        ["32", "", 1],
+        ["116", "", 1], //GW-Lüfter
+        ["53", "Dekon-P", 6], //Dekon-P
+        ["34", "ELW 2", 1], //ELW2
+        ["57", "Feuerwehrkran", 1], //FWK
+        ["27", "GW-Gefahrgut", 1], //CHEMIE
+        ["33", "GW-Höhenrettung", 1], //Höhenrettung
+        ["12", "GW-Messtechnik", 1], //Messtechnik
+        ["83", "Werkfeuerwehr	", 1], //83 GW-Werkfeuerwehr
+        ["84", "Werkfeuerwehr	", 1], //84 ULF mit Löscharm
+        ["85", "Werkfeuerwehr	", 1], //85 TM 50
+        ["86", "Werkfeuerwehr	", 1], //86 Turbolöscher
+
+
+
+        //THW
+        ["39", "", 1], //39 GKW
+        ["41", "", 1], //41 MzGW (FGr N)
+        ["109", "FGr SB", 1], // 109 MzGW SB
+        ["40", "Zugtrupp", 1],//40 MTW-TZ
+        ["42", "Fachgruppe Räumen", 1], //42 LKW K 9
+        ["45", "Fachgruppe Räumen", 1], //45 MLW 5
+        ["65", "GW-Wasserrettung", 1], //65 LKW 7 Lkr 19 tm
+        ["69", "GW-Taucher", 1], //69 Tauchkraftwagen
+        ["93", "Rettungshundeführer (THW)", 1], //93 MTW-O (Fachgruppe Ortung)
+        ["100", "Fachgruppe Wasserschaden/Pumpen", 1], //100 MLW 4
+        ["123", "Fachgruppe Wasserschaden/Pumpen", 1], //123 LKW 7 Lbw (FGr WP)
+        ["122", "FGr E", 1], //122 LKW 7 Lbw (FGr E)
+
+
+        //SEG-Einsatz
+        ["58", "", 1],
+        ["59", "Einsatzleitung (SEG)", 2],
+        ["60", "GW-San", 6],
+        ["91", "Rettungshundeführer (SEG)", 4],
+
+        //Polizeiwache
+        ["95", "Motorradstaffel", 1],
+        ["98", "Kriminalpolizist", 1],
+        ["103", "Dienstgruppenleitung", 1],
+        ["94", "Hundeführer (Schutzhund)", 1],
+
+        //Wasserrettung
+        ["63", "GW-Taucher", 2],
+        ["64", "GW-Wasserrettung", 6],
+    ];
 
     //pause between button presses. z.B. 1000 for 1 second pause between presses. 750 for 0.75 seconds pause between presses
     var pressDelay = 750;
