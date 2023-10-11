@@ -221,8 +221,9 @@
         $('#accordion').before(newWindow);
 
 
-        $('#navbar-building-schooling-collapse').append(`
-            <div class="navbar-text navbar-right">
+        let div = document.createElement("div");
+        div.className = "navbar-text navbar-right"
+        div.innerHTML = `
                 <p style="display: inline-block">füllt die Anzahl der Ausbildungen pro Wache bis zur gewählten Zahl auf  </p>
                 <input style="display:inline-block; color: #000; width:50px;" type="number" id="maxPerBuilding" min="1" value="1"></input>
                 <a id="btnAutoSelect" class="btn btn-success">Auswählen</a>
@@ -230,8 +231,11 @@
                 <label class="" for="noEduc">nur Personal ohne Ausbildung</label>
                 <input id="noAss" name="noAss" type="checkbox" checked="true">
                 <label class="" for="noAss">nur ungebundenes Personal</label>
-            </div>
-        `);
+        `;
+
+
+        let insertBeforeElement = $('#schooling_free')[0].parentElement
+        insertBeforeElement.parentElement.insertBefore(div, insertBeforeElement);
 
         $('#btnAutoSelect').on('click', function() { autoSelectPeople(); });
 
