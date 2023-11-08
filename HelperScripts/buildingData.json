@@ -111,6 +111,12 @@
                 "name": "Lüfter-Erweiterung",
                 "cost": 75000,
                 "duration": 5
+            },
+            {
+                "id": 18,
+                "name": "Drohnen-Erweiterung",
+                "cost": 150000,
+                "duration": 5
             }
         ]
     },
