@@ -465,6 +465,12 @@
                 "name": "Fachgruppe Elektroversorgung",
                 "cost": 200000,
                 "duration": 7
+            },
+            {
+                "id": 12,
+                "name": "Trupp Unbemannte Luftfahrtsysteme",
+                "cost": 50000,
+                "duration": 5
             }
         ]
     },
@@ -600,6 +606,12 @@
                 "name": "Rettungshundestaffel",
                 "cost": 350000,
                 "duration": 7
+            },
+            {
+                "id": 4,
+                "name": "SEG Drohne",
+                "cost": 50000,
+                "duration": 5
             }
         ]
     },
