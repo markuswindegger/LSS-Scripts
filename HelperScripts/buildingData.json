@@ -612,12 +612,6 @@
                 "name": "SEG Drohne",
                 "cost": 50000,
                 "duration": 5
-            },
-            {
-                "id": 5,
-                "name": "Betreuungs- und Verpflegungsdienst-Erweiterungen",
-                "cost": 200000,
-                "duration": 5
             }
         ]
     },
