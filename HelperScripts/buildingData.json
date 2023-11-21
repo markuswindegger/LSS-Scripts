@@ -612,6 +612,12 @@
                 "name": "SEG Drohne",
                 "cost": 50000,
                 "duration": 5
+            },
+            {
+                "id": 5,
+                "name": "Verpflegungsdienst-Erweiterung",
+                "cost": 200000,
+                "duration": 5
             }
         ]
     },
