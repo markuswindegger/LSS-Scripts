@@ -34,7 +34,11 @@
         for(var i = 0; i < vehicleList.length; i++){
             var result = isVehicleIdInArray(getVehicleTypeID(vehicleList[i]));
             if(result != null){
-                await $.post("/vehicles/" + getVehicleID(vehicleList[i]), { "vehicle": { "vehicle_type_caption": result }, "_method": "put", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+                try {
+                    await $.post("/vehicles/" + getVehicleID(vehicleList[i]), { "vehicle": { "vehicle_type_caption": result }, "_method": "put", "authenticity_token": $("meta[name=csrf-token]").attr("content") });
+                } catch(error){
+
+                }
                 await delay(100);
             }
         }
@@ -67,6 +71,7 @@
         return new Promise(resolve => setTimeout(resolve, time));
     }
 })();
+
 
 
 
