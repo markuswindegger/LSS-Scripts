@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MultipleSchools
-// @version      1.0.7
+// @version      1.0.8
 // @description  Use more than 4 classes at once
 // @author       Silberfighter (original from Allure149)
 // @match        https://*.leitstellenspiel.de/buildings/*
@@ -32,13 +32,17 @@
         h2.innerText = "checkpoint 1.1";
         await $.getJSON("/api/buildings.json").done(data => allBuildings = data);
         h2.innerText = "checkpoint 1.2";
+        await $.getJSON("/api/buildings.json").done(data => sessionStorage.setItem("aBuildings", JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
+        h2.innerText = "checkpoint 1.3";
         return allBuildings;
     }
 
     async function loadAllianceBuildingsApi(){
+        h2.innerText = "checkpoint 3.1";
         if(!sessionStorage.aAllianceBuildings || JSON.parse(sessionStorage.aAllianceBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) {
             await $.getJSON("/api/alliance_buildings.json").done(data => sessionStorage.setItem("aAllianceBuildings", JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
         }
+        h2.innerText = "checkpoint 3.2";
         return JSON.parse(sessionStorage.aAllianceBuildings).value;
     }
 
@@ -53,16 +57,20 @@
     var thisSchoolFreeClasses = $("#building_rooms_use option").length || 1;
     var schoolsToUse = [{"id": thisSchoolId, "name": thisSchoolName, "free": thisSchoolFreeClasses}];
     h2.innerText = "checkpoint 3";
+    var zusatzInfo = " ";
 
     var searchThroughBuildings = await (async function(){
         if($(".dl-horizontal:first a").length > 0 && $(".dl-horizontal:first a").attr("href").indexOf("alliances") > -1){
             var aAllianceBuildings = await loadAllianceBuildingsApi();
+            zusatzInfo = " V ";
             return aAllianceBuildings;
         } else {
+            zusatzInfo = " E ";
             return aBuildings;
         }
     })();
-    h2.innerText = "checkpoint 4";
+    zusatzInfo += searchThroughBuildings.length + " ";
+    h2.innerText = "checkpoint 4" + zusatzInfo;
 
     var freeClasses = 1;
     for(var building of searchThroughBuildings){
@@ -78,8 +86,12 @@
             }
         }
     }
+    zusatzInfo += schoolsToUse.length + " ";
+    h2.innerText = "checkpoint 5" + zusatzInfo;
 
     schoolsToUse.sort((a,b)=>a.name>b.name);
+
+    h2.innerText = "checkpoint 6" + zusatzInfo;
 
     var savedSchoolsToUse = schoolsToUse;
 
@@ -91,10 +103,17 @@
 
     }
 
+    h2.innerText = "checkpoint 7" + zusatzInfo;
+
     $("input[name=commit]:last").after(`<span class="btn btn-success navbar-btn" id="multiple_commits">Ausbilden</span>`);
     $("input[name=commit]").remove();
 
+    h2.innerText = "checkpoint 8" + zusatzInfo;
+
     $("#building_rooms_use").after(`<br><label for="multipleClassesSelect">Sollen spezielle Schulen genutzt werden?</label> <input class="form-check-input" type="checkbox" value="" id="cbxMultipleClassrooms"><select multiple="" class="form-control hidden" id="multipleClassesSelect" style="height:10em;width:32em"></select>`);
+
+
+    h2.innerText = "checkpoint 9" + zusatzInfo;
 
     for(var school of schoolsToUse){
         if(school.name != thisSchoolName) $("#multipleClassesSelect").append(`<option value="${school.free}" building_id="${school.id}">${school.name}</option>`);
@@ -106,6 +125,8 @@
         else return Object.values(schoolsToUse).reduce((a,b)=>a+b.free,0);
     })();
 
+    h2.innerText = "checkpoint 10" + zusatzInfo;
+
     function createGlobalOptions(){
         $("#building_rooms_use option").remove();
         for(var i = 1; i <= freeTotal; i++){
@@ -115,9 +136,13 @@
 
     createGlobalOptions();
 
+    h2.innerText = "checkpoint 11" + zusatzInfo;
+
     $("#building_rooms_use").on("change", function(){
         update_schooling_free();
     });
+
+    h2.innerText = "checkpoint 12" + zusatzInfo;
 
     $("#cbxMultipleClassrooms").on("change", function(a){
         $("#multipleClassesSelect option:selected").each(function(){
@@ -130,6 +155,8 @@
         if(a.target.checked) $("#multipleClassesSelect").removeClass("hidden");
         else $("#multipleClassesSelect").addClass("hidden");
     });
+
+    h2.innerText = "checkpoint 13" + zusatzInfo;
 
     $("#multipleClassesSelect").on("change", function(){
         update_schooling_free();
@@ -155,6 +182,8 @@
             }
         }
     });
+
+    h2.innerText = "checkpoint 14" + zusatzInfo;
 
     $("#multiple_commits").on("click", async function(){
         $("#multiple_commits").after(`<span id="multipleClassesOutput" class="label label-warning" style="font-size: 14px">Informationen werden zusammengestellt. Bitte warten ...</span>`);
