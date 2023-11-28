@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Button for assigning people
 // @namespace    empty
-// @version      0.1
+// @version      0.2
 // @description  assign People with a button push
-// @author       Silberfighter
+// @author       You
 // @match        https://www.leitstellenspiel.de/vehicles/*/zuweisung
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
@@ -44,20 +44,20 @@
 
     //------- after here change only stuff if you know what you are doing -------
 
-    await $.getScript("https://api.lss-cockpit.de/lib/utf16convert.js");
 
-    if (!sessionStorage.cVehicles || JSON.parse(sessionStorage.cVehicles).lastUpdate < (new Date().getTime() - 5 * 1000 * 60) || JSON.parse(sessionStorage.cVehicles).userId != user_id) {
-        await $.getJSON('/api/vehicles').done(data => sessionStorage.setItem('cVehicles', JSON.stringify({ lastUpdate: new Date().getTime(), value: LZString.compressToUTF16(JSON.stringify(data)), userId: user_id })));
-    }
-    var cVehicles = JSON.parse(LZString.decompressFromUTF16(JSON.parse(sessionStorage.cVehicles).value));
+    var vehicleID = window.location.href
+    vehicleID = vehicleID.split("/");
+    vehicleID = vehicleID[vehicleID.length-2]
 
-    var vehicleID = (window.location.href.split("/")[4]);
-    var vehicle = cVehicles.filter(b => b.id == vehicleID)[0];
+    var vehicle = await $.getJSON('/api/v2/vehicles/' + vehicleID);
+    vehicle = vehicle.result;
+
     var personGoal = list.filter(b => b[0] == vehicle.vehicle_type);
 
     if (vehicleID && vehicle && personGoal.length > 0 && window.location.href == "https://www.leitstellenspiel.de/vehicles/" + vehicleID + "/zuweisung"){
 
         var allMsg = Array.prototype.slice.call(document.getElementsByClassName("vehicles-education-filter-box"))[0];
+        console.log(vehicle.vehicle_type);
         console.log(personGoal);
 
         var newWindow = document.createElement("div");
@@ -72,7 +72,7 @@
         newWindow.innerHTML += `</p></div>`
 
         newWindow.setAttribute("class","navbar-text");
-        newWindow.setAttribute("style","width:100%");
+        newWindow.setAttribute("style","width:100%;");
 
         allMsg.parentNode.insertBefore(newWindow, allMsg);
 
