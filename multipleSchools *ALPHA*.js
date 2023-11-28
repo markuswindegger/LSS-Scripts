@@ -32,7 +32,7 @@
         h2.innerText = "checkpoint 1.1";
         await $.getJSON("/api/buildings.json").done(data => allBuildings = data);
         h2.innerText = "checkpoint 1.2";
-        await $.getJSON("/api/buildings.json").done(data => sessionStorage.setItem("aBuildings", JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
+        //await $.getJSON("/api/buildings.json").done(data => sessionStorage.setItem("aBuildings", JSON.stringify({lastUpdate: new Date().getTime(), value: data})) );
         h2.innerText = "checkpoint 1.3";
         return allBuildings;
     }
