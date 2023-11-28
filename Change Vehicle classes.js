@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Change Vehicle classes
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.2.2
 // @description  Change the vehicle classes of specific vehicles in one Building with one button click
 // @author       Silberfighter
 // @include      https://www.leitstellenspiel.de/buildings/*
@@ -39,7 +39,7 @@
                 } catch(error){
 
                 }
-                await delay(100);
+                await delay(20);
             }
         }
 
@@ -71,6 +71,7 @@
         return new Promise(resolve => setTimeout(resolve, time));
     }
 })();
+
 
 
 
