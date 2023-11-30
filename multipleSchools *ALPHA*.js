@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MultipleSchools
-// @version      1.0.8
+// @version      1.0.9
 // @description  Use more than 4 classes at once
 // @author       Silberfighter (original from Allure149)
 // @match        https://*.leitstellenspiel.de/buildings/*
@@ -11,10 +11,8 @@
 /* global $ */
 
 (async function(){
-    var h2 = document.createElement("h2");
+    var h2 = document.createElement("h3");
     document.getElementsByClassName('building-title')[0].appendChild(h2);
-
-    h2.innerText = "checkpoint 0";
 
     var schoolToSearch = +$("h1:first").attr("building_type") || null;
     var accessibleBuildings = [1,3,8,10];
@@ -22,6 +20,8 @@
     if(schoolToSearch == null || !accessibleBuildings.includes(schoolToSearch)){
         return false;
     }
+
+    h2.innerText = "checkpoint 0";
 
     async function loadBuildingsApi(){
         /**if(!sessionStorage.aBuildings || JSON.parse(sessionStorage.aBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60)) {
