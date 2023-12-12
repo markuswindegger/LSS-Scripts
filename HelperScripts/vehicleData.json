@@ -2210,5 +2210,230 @@
 		"id": 121,
 		"name": "GTLF",
 		"short_name": "GTLF"
+	},
+		{
+		"id": 122,
+		"name": "Lastkraftwagen Plane/Spriegel mit Ladebordwand, 7 t, Fachgruppe Elerktroversorgung",
+		"short_name": "LKW 7 Lbw (FGr E)",
+		"class": [],
+		"class_alias": [],
+		"cost": 15000,
+		"personal": {
+			"min": 1,
+			"max": 3
+		},
+		"building": [9],
+		"additional": {
+			"qualification": ["Fachgruppe Elektroversorgung"]
+		},
+		"prerequisites": {
+			"thw": 1
+		}
+	},
+	{
+		"id": 123,
+		"name": "Lastkraftwagen Plane/Spriegel mit Ladebordwand, 7 t, Fachgruppe Wasserschaden/Pumpen",
+		"short_name": "LKW 7 Lbw (FGr WP)",
+		"class": [],
+		"class_alias": [],
+		"cost": 15000,
+		"personal": {
+			"min": 1,
+			"max": 3
+		},
+		"building": [9],
+		"additional": {
+			"qualification": ["Fachgruppe Wasserschaden/Pumpen"]
+		},
+		"prerequisites": {
+			"thw": 1
+		}
+	},
+	{
+		"id": 124,
+		"name": "Mannschaftstransportwagen des Ortsverbands",
+		"short_name": "MTW-OV",
+		"class": [],
+		"class_alias": [],
+		"cost": 15000,
+		"personal": {
+			"min": 1,
+			"max": 7
+		},
+		"building": [9],
+		"prerequisites": {
+			"thw": 1
+		}
+	},
+	{
+		"id": 125,
+		"name": "Mannschaftstransportwagen Trupp Unbemannte Luftfahrtsysteme",
+		"short_name": "MTW-Tr UL",
+		"class": [],
+		"class_alias": [],
+		"cost": 10000,
+		"personal": {
+			"min": 4,
+			"max": 4
+		},
+		"building": [9],
+		"additional": {
+			"qualification": ["Trupp Unbemannte Luftfahrtsysteme"]
+		},
+		"prerequisites": {
+			"thw": 1
+		}
+	},
+	{
+		"id": 126,
+		"name": "Mannschaftstransportfahrzeug Drohne",
+		"short_name": "MTF Drohne",
+		"class": [],
+		"class_alias": [],
+		"cost": 10000,
+		"personal": {
+			"min": 4,
+			"max": 5
+		},
+		"building": [0, 18],
+		"additional": {
+			"qualification": ["Drohnen-Schulung"]
+		},
+		"prerequisites": {
+			"fire_stations": 1
+		}
+	},
+	{
+		"id": 127,
+		"name": "Gerätewagen Drohne",
+		"short_name": "GW UAS",
+		"class": [],
+		"class_alias": [],
+		"cost": 10000,
+		"personal": {
+			"min": 4,
+			"max": 4
+		},
+		"building": [12],
+		"additional": {
+			"qualification": ["SEG Drohne"]
+		},
+		"prerequisites": {
+			"seg": 1
+		}
+	},
+	{
+		"id": 128,
+		"name": "Einsatzleitwagen Drohne",
+		"short_name": "ELW Drohne",
+		"class": [],
+		"class_alias": [],
+		"cost": 20000,
+		"personal": {
+			"min": 4,
+			"max": 5
+		},
+		"building": [0, 18],
+		"additional": {
+			"qualification": ["Drohnen-Schulung"]
+		},
+		"prerequisites": {
+			"fire_stations": 1
+		}
+	},
+	{
+		"id": 129,
+		"name": "Einsatzleitwagen 2 Drohne",
+		"short_name": "ELW2 Drohne",
+		"class": [],
+		"class_alias": [],
+		"cost": 35000,
+		"personal": {
+			"min": 4,
+			"max": 6
+		},
+		"building": [0, 18],
+		"additional": {
+			"qualification": ["ELW 2 Lehrgang", "Drohnen-Schulung"]
+		},
+		"prerequisites": {
+			"fire_stations": 1
+		}
+	},
+	{
+		"id": 130,
+		"name": "Gerätewagen Betreuung",
+		"short_name": "GW-Bt",
+		"class": [],
+		"class_alias": [],
+		"cost": 35000,
+		"personal": {
+			"min": 3,
+			"max": 3
+		},
+		"building": [12],
+		"additional": {
+			"qualification": ["Verpflegungshelfer", "Betreuungsdienst"]
+		},
+		"prerequisites": {
+			"seg": 1
+		}
+	},
+	{
+		"id": 131,
+		"name": "Betreuungskombi",
+		"short_name": "Bt-Kombi",
+		"class": [],
+		"class_alias": [],
+		"cost": 25000,
+		"personal": {
+			"min": 1,
+			"max": 9
+		},
+		"building": [12],
+		"additional": {
+			"qualification": ["Betreuungsdienst"]
+		},
+		"prerequisites": {
+			"seg": 1
+		}
+	},
+	{
+		"id": 132,
+		"name": "Anhänger Feldkochherd",
+		"short_name": "FKH",
+		"class": [],
+		"class_alias": [],
+		"cost": 20000,
+		"personal": {
+			"min": 0,
+			"max": 0
+		},
+		"building": [12],
+		"additional": {
+			"trailer": true
+		},
+		"prerequisites": {
+			"seg": 1
+		}
+	},
+	{
+		"id": 133,
+		"name": "Betreuungs-Lastkraftwagen",
+		"short_name": "Bt LKW",
+		"class": [],
+		"class_alias": [],
+		"cost": 15000,
+		"personal": {
+			"min": 3,
+			"max": 3
+		},
+		"building": [12],
+		"additional": {
+			"qualification": ["Verpflegungshelfer", "Betreuungsdienst"]
+		},
+		"prerequisites": {
+			"seg": 1
+		}
 	}
 ]
