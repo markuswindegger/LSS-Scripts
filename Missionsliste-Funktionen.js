@@ -100,7 +100,7 @@ function sortMissions(direction) {
     hashmap.set('Rettungswache', 'Rettungswache');
     hashmap.set('SEK-Wachen', 'SEK-Wache');
     hashmap.set('Schnelleinsatzgruppe (SEG)', 'SEG-Wache');
-    hashmap.set('THW-Wachen', 'THW-Ortsverband');
+    hashmap.set('THW-Wachen', 'THW-Ortsverb');
     hashmap.set('THW-Zugtrupps', 'THW: Zugtrupp');
     hashmap.set('THW: 2. Technische Züge', ['THW: Technischer Zug', 'THW: Technische Züge']);
     hashmap.set('THW: Fachgruppe Wasserschaden/Pumpen', 'Wasserschaden/Pumpen Erweiterung');
