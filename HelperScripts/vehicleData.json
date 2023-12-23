@@ -1272,7 +1272,7 @@
 		},
 		"building": [9],
 		"additional": {
-			"qualification": [{"names": ["Fachgruppe Wassergefahren"]}]
+			"qualification": [{"names": ["GW-Wasserrettung", "GW-Taucher"]}]
 		},
 		"prerequisites": {
 			"wasserrettung": 1
@@ -2432,7 +2432,7 @@
 		},
 		"building": [12],
 		"additional": {
-			"qualification": [{"names": ["Drohnen-Schulung"]}]
+			"qualification": [{"names": ["SEG Drohne"]}]
 		},
 		"prerequisites": {
 			"seg": 1
@@ -2489,7 +2489,7 @@
 		},
 		"building": [12],
 		"additional": {
-			"qualification": [{"names": ["Betreuungsdienst"], "min": 1, "max": 1}, {"names": ["Verpflegungshelfer"], "min": 2, "max": 2}]
+			"qualification": [{"names": ["Betreuungshelfer"], "min": 1, "max": 1}, {"names": ["Verpflegungshelfer"], "min": 2, "max": 2}]
 		},
 		"prerequisites": {
 			"seg": 1
@@ -2508,7 +2508,7 @@
 		},
 		"building": [12],
 		"additional": {
-			"qualification": [{"names": ["Betreuungsdienst"]}]
+			"qualification": [{"names": ["Betreuungshelfer"]}]
 		},
 		"prerequisites": {
 			"seg": 1
@@ -2546,7 +2546,7 @@
 		},
 		"building": [12],
 		"additional": {
-			"qualification": [{"names": ["Betreuungsdienst"], "min": 1, "max": 1}, {"names": ["Verpflegungshelfer"], "min": 2, "max": 2}]
+			"qualification": [{"names": ["Betreuungshelfer"], "min": 1, "max": 1}, {"names": ["Verpflegungshelfer"], "min": 2, "max": 2}]
 		},
 		"prerequisites": {
 			"seg": 1
