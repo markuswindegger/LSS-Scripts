@@ -1272,7 +1272,7 @@
 		},
 		"building": [9],
 		"additional": {
-			"qualification": [{"names": ["GW-Wasserrettung", "GW-Taucher"]}]
+			"qualification": [{"names": ["GW-Wasserrettung"]}]
 		},
 		"prerequisites": {
 			"wasserrettung": 1
@@ -1348,7 +1348,7 @@
 		},
 		"building": [9],
 		"additional": {
-			"qualification": [{"names": ["Fachgruppe Bergungstaucher"]}]
+			"qualification": [{"names": ["GW-Taucher"]}]
 		},
 		"prerequisites": {
 			"wasserrettung": 1
