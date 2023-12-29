@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         PerformActionOnMultipleBuildingsInSchool
 // @namespace    http://tampermonkey.net/
-// @version      v0.1
+// @version      v0.2
 // @description  try to take over the world!
 // @author       Silberfighter
 // @match        https://www.leitstellenspiel.de/buildings/*
