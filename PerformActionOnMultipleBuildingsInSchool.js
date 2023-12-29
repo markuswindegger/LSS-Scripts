@@ -4,7 +4,7 @@
 // @version      v0.1
 // @description  try to take over the world!
 // @author       Silberfighter
-// @match        https://www.leitstellenspiel.de/buildings/1633111
+// @match        https://www.leitstellenspiel.de/buildings/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=leitstellenspiel.de
 // @grant        none
 // ==/UserScript==
@@ -89,26 +89,3 @@
         forwardClick = true
     }
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
