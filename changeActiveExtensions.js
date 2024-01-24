@@ -20,8 +20,11 @@
     if (!sessionStorage.cBuildings || JSON.parse(sessionStorage.cBuildings).lastUpdate < (new Date().getTime() - 5 * 1000 * 60) || JSON.parse(sessionStorage.cBuildings).userId != user_id) {
         await $.getJSON('/api/buildings').done(data => sessionStorage.setItem('cBuildings', JSON.stringify({ lastUpdate: new Date().getTime(), value: LZString.compressToUTF16(JSON.stringify(data)), userId: user_id })));
     }
+    //fetch('https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/buildingData.json').then((response) => response.text()).then((text) => console.log(text));
+    //const buildingData = await $.getJSON("https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/buildingData.json");
 
-    const buildingData = await $.getJSON("https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/buildingData.json");
+    const response = await fetch("https://raw.githubusercontent.com/floflo3299/LSS-Scripts/main/HelperScripts/buildingData.json");
+    const buildingData = JSON.parse(await response.text());
 
 
     let baseID = "extensionsToggle";
@@ -103,7 +106,7 @@
     });
 
 
-    const relevantBuildingsID = [0,2,4,5,6,9,11,12,13,15,17,21];
+    const relevantBuildingsID = [0,2,4,5,6,9,11,12,13,15,17,21,24];
     const extensionsToIgnore = ["Abrollbehälter-Stellplatz", "Großwache", "Zelle"];
 
     overlayContent.innerHTML += `
