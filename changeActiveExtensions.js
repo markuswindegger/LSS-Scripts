@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         de-/activate Extensions
 // @namespace    http://tampermonkey.net/
-// @version      1.3.1
+// @version      1.3.2
 // @description  Change the status of expensions and buildings
 // @author       Silberfighter
 // @include      *://www.leitstellenspiel.de/
