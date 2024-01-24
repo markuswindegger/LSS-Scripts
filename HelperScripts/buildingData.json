@@ -569,6 +569,12 @@
                 "name": "Diensthundestaffel",
                 "cost": 100000,
                 "duration": 5
+            },
+            {
+                "id": 9,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
             }
         ]
     },
@@ -879,5 +885,54 @@
         "class_alias": [],
         "max_level": 20,
         "extensions": []
-    }
+    },
+    {
+        "id": 24,
+        "name": "Reiterstaffel",
+        "class": [
+            "police_horse"
+        ],
+        "class_alias": [
+            "Reiterstaffel"
+        ],
+        "max_level": 0,
+        "extensions": [
+            {
+                "id": 0,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+            {
+                "id": 1,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+            {
+                "id": 2,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+            {
+                "id": 3,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+            {
+                "id": 4,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+            {
+                "id": 5,
+                "name": "Reiterstaffel",
+                "cost": 300000,
+                "duration": 5
+            },
+        ]
+    },
 ]
