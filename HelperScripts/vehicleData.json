@@ -2551,5 +2551,21 @@
 		"prerequisites": {
 			"seg": 1
 		}
+	},
+	{
+		"id": 136,
+		"name": "Anhänger Pferde",
+		"short_name": "Anh Pferde",
+		"class": [],
+		"class_alias": [],
+		"cost": 100,
+		"personal": {
+			"min": 0,
+			"max": 0
+		},
+		"building": [11],
+		"additional": {
+			"trailer": true
+		}
 	}
 ]
